@@ -54,16 +54,16 @@ class ContentResource extends Resource
             TextColumn::make('file_path')
             ->sortable()->searchable(),
             ToggleColumn::make('published'),
-            TextColumn::make('download')
-            ->label('Download')
-            ->html(fn ($record) => '<a href="'.route('files.download', $record->id).'">Download</a>'),           
+                      
              ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
+                Tables\Actions\Action::make('download')
+                    ->label('Download')
+                    ->url(fn (Content $record): string => route('download.file', ['content' => $record->id]))            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
