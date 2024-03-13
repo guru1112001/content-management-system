@@ -4,6 +4,7 @@ use App\Models\Content;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\ContentController;
+use App\Utilities\PdfWatermark;
 use App\Http\Controllers\DownloadController;
 
 /*
@@ -25,21 +26,18 @@ Route::get('/', function () {
 
 Route::get('/download-content/{content}', function (Content $content) {
     // Construct the file path from the Content model's file_path attribute
-    // $filePath = $content->file_path;
-    // echo($filePath);
-    // // Check if the file exists
-    // if (Storage::exists($filePath)) {
-    //     // File exists, return download response
-    //     return Storage::download($filePath);
-    // } else {
-    //     // File does not exist, return 404 Not Found
-    //     abort(404);
     $filePath = public_path('storage/' . $content->file_path);
     
     // Check if the file exists
     if (file_exists($filePath)) {
-        // File exists, serve the file for download
-        return response()->download($filePath);
+        // Check if 'preview' query parameter is set to 'true'
+        if (request()->query('preview')) {
+            // If preview mode is enabled, render the PDF in the browser
+            return Response::file($filePath);
+        } else {
+            // Otherwise, serve the file for download
+            return response()->download($filePath);
+        }
     } else {
         // File does not exist, return 404 Not Found
         abort(404);

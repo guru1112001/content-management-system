@@ -63,7 +63,12 @@ class ContentResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('download')
                     ->label('Download')
-                    ->url(fn (Content $record): string => route('download.file', ['content' => $record->id]))            ])
+                    ->url(fn (Content $record): string => route('download.file', ['content' => $record->id])),
+                Tables\Actions\Action::make('preview')
+                    ->label('Preview')
+                    ->url(function (Content $record): string {
+                    return route('download.file', ['content' => $record->id]) . '?preview=true';
+                        }   ) ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
