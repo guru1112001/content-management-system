@@ -66,9 +66,11 @@ class ContentResource extends Resource
                     ->url(fn (Content $record): string => route('download.file', ['content' => $record->id])),
                 Tables\Actions\Action::make('preview')
                     ->label('Preview')
-                    ->url(function (Content $record): string {
-                    return route('download.file', ['content' => $record->id]) . '?preview=true';
-                        }   ) ])
+                    ->url(fn (Content $record): string => route('preview.pdf', ['content' => $record->id])),
+
+                    // ->url(function (Content $record): string {
+                    // return route('pdf.preview', ['content' => $record->id]);
+                    ])  
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

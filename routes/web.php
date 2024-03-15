@@ -43,3 +43,12 @@ Route::get('/download-content/{content}', function (Content $content) {
         abort(404);
     }
 })->name('download.file')->middleware('auth');
+Route::get('/preview-pdf/{content}', function (Content $content) {
+    // Construct the file path from the Content model's file_path attribute
+    // $filePath = asset(public_path('storage/' . $content->file_path));
+    // $filePath = asset('storage/'. $content->file_path);
+    $filePath = asset('storage/' . $content->file_path);
+    echo($filePath);
+    
+    return view('pdf.preview', ['filePath' => $filePath]);
+})->name('preview.pdf');
