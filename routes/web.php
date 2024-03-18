@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\ContentController;
 use App\Utilities\PdfWatermark;
-use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\FolderController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,12 +45,33 @@ Route::get('/download-content/{content}', function (Content $content) {
         abort(404);
     }
 })->name('download.file')->middleware('auth');
-Route::get('/preview-pdf/{content}', function (Content $content) {
-    // Construct the file path from the Content model's file_path attribute
-    // $filePath = asset(public_path('storage/' . $content->file_path));
-    // $filePath = asset('storage/'. $content->file_path);
-    $filePath = asset('storage/' . $content->file_path);
-    echo($filePath);
+// Route::get('/preview-pdf/{content}', function (Content $content) {
+//     $filePath = asset('storage/' . $content->file_path);
     
-    return view('pdf.preview', ['filePath' => $filePath]);
-})->name('preview.pdf');
+    
+//     return view('pdf.preview', ['filePath' => $filePath]);
+// })->name('preview.pdf');
+
+
+// Route::get('/preview-pdf/{content}', function (Content $content) {
+//     $model = Content::findOrFail($content->id);
+// $filePath = storage_path('app/' . $model->file_name);
+// echo($filePath);
+// if (File::exists($filePath)) {
+//     $fileContents = File::get($filePath);
+//     return Response::make($fileContents, 200, [
+//         'Content-Type' => 'application/pdf',
+//     ]);
+// } else {
+//     abort(404); // File not found
+// } 
+//    return view('pdf.preview', ['filePath' => $filePath]);
+
+// })->name('preview.pdf');
+
+Route::get('/preview-document/{file}', [ContentController::class,'preview'])->name('content.preview');
+
+
+Route::get('/subjects/{subject}', [SubjectController::class, 'showFolders'])->name('subjects.showFolders');
+Route::get('/folders/{folder}', [FolderController::class, 'showContents'])->name('folders.showContents');
+

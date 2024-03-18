@@ -41,6 +41,11 @@ class SubjectResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('preview')
+                ->label(__('View Folders'))
+                ->url(fn (Subject $subject) => route('subjects.showFolders', $subject)
+                // ->url(fn (Content $record): string => route('preview.pdf', ['content' => $record->id])),
+            ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
