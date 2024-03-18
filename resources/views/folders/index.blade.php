@@ -1,25 +1,52 @@
 <!-- resources/views/folders/index.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-semibold mb-4">Folders</h1>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach ($folders as $folder)
-                <li class="bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg">
-                    <!-- Use data attribute to store folder id -->
-                    <a href="#" class="block text-xl font-semibold folder-link" data-folder-id="{{ $folder->id }}">{{ $folder->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-        
-        <!-- Contents section -->
-        <div id="contents-section" class="mt-8">
-            <!-- Contents will be displayed here -->
+<div class="flex justify-evenly mt-4 ml-4">
+    <div class="w-1/2 pr-4">
+        <!-- Left Side (Folders) -->
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Folders</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($folders as $folder)
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <a href="#" class="folder-link" data-folder-id="{{ $folder->id }}">{{ $folder->name }}</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-
+    <div id="contents-section" class="w-1/2 " >
+        <!-- Contents will be displayed here -->
+    </div>
+    {{-- <div class="w-1/2 pl-4">
+        <!-- Right Side (Documents/Contents) -->
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Documents / Contents</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">feew</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div> --}}
     <script>
         // Add event listener to folder links
         document.addEventListener('DOMContentLoaded', function () {

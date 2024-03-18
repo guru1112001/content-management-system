@@ -1,18 +1,33 @@
 <!-- resources/views/contents/index.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-semibold mb-4">Contents</h1>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach ($contents as $content)
-                <li class="bg-white dark:bg-gray-800 shadow-lg p-4 rounded-lg">
-                    <span class="block text-xl font-semibold">{{ $content->file_name }}</span>
-                    <a href="{{ route('content.preview', ['file' => $content->file_path]) }}" class="text-blue-600 hover:text-blue-800">Preview</a>
+<div class="pr-4">
+    <!-- Right Side (Documents/Contents) -->
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Documents / Contents</th>
+                    <th scope="col" class="px-6 py-3">
+                        Preview
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($contents as $content)
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $content->file_name }}
+                        <td class="px-6 py-4">
+                            <a href="{{ route('content.preview', ['file' => $content->file_path]) }}" class="text-blue-600 hover:text-blue-800">Preview</a>
+                        </td>
+                    </td>
+                </tr>
 
-                </li>
-            @endforeach
-        </ul>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+</div>
+</div>
 @endsection

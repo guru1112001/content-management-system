@@ -19,20 +19,18 @@
     </style>
 </head>
 <body class="dark:bg-gray-900 dark:text-white">
-    <header class="dark:bg-gray-800 text-white py-4">
-        <!-- Your header content goes here -->
-    </header>
+   
 
-    <nav class="dark:bg-gray-800 text-white py-4">
+    {{-- <nav class="dark:bg-gray-800 text-white py-4">
         <!-- Your navigation bar goes here -->
-    </nav>
+    </nav> --}}
 
-    <main class="container mx-auto px-4 py-8">
+    <main>
         @yield('content') <!-- This is where the content of other views will be injected -->
     </main>
 
-    <footer class="dark:bg-gray-800 text-white py-4">
+    {{-- <footer class="dark:bg-gray-800 text-white py-4">
         <!-- Your footer content goes here -->
-    </footer>
+    </footer> --}}
 </body>
 </html>
