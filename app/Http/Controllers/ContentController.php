@@ -27,4 +27,5 @@ class ContentController extends Controller
         // Serve the PDF file with read-only headers
         return response()->file($filePath);
     }
+    
 }

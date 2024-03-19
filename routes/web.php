@@ -75,3 +75,4 @@ Route::get('/preview-document/{file}', [ContentController::class,'preview'])->na
 Route::get('/subjects/{subject}', [SubjectController::class, 'showFolders'])->name('subjects.showFolders');
 Route::get('/folders/{folder}', [FolderController::class, 'showContents'])->name('folders.showContents');
 
+// Route::get('/folders/{folder}', [FolderController::class,'show'])->name('folders.show');

@@ -6,6 +6,7 @@
     <title>Your Application Title</title>
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!-- Include Tailwind CSS --> --}}
     @vite('resources/css/app.css')
+    @vite(['resources/css/app.css','resources/js/app.js'])
     <style>
         /* Override Tailwind CSS for dark mode */
         @media (prefers-color-scheme: dark) {
@@ -17,6 +18,8 @@
             }
         }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    
 </head>
 <body class="dark:bg-gray-900 dark:text-white">
    
@@ -32,5 +35,7 @@
     {{-- <footer class="dark:bg-gray-800 text-white py-4">
         <!-- Your footer content goes here -->
     </footer> --}}
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>
