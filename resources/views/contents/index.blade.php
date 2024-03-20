@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 
-<div class="pr-4">
+
     <!-- Right Side (Documents/Contents) -->
 
     <div class="relative ">
@@ -129,8 +129,8 @@
         </table>
     </div>
 </div>
-</div>
-<script>
+
+{{-- <script>
     document.querySelectorAll('[data-dropdown-toggle]').forEach(button => {
         button.addEventListener('click', function() {
             // Get the ID of the dropdown menu associated with this button
@@ -140,4 +140,4 @@
             dropdownMenu.classList.toggle('hidden');
         });
     });
-</script>
+</script> --}}
