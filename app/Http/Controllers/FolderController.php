@@ -20,4 +20,10 @@ class FolderController extends Controller
 
         return view('folders.show', compact('folder', 'contents'));
     }
+    public function destroy(Folder $folder)
+    {
+        $folder->delete();
+        
+        return redirect()->back()->with('success', 'Folder deleted successfully');
+    }
 }

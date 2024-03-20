@@ -101,7 +101,15 @@
                   <a href="#">Edit Details</a>
                   <a href="#">Publish/un-Publish</a>
                   <a href="#">Free preview</a>
-                  <a href="#">Delete</a>
+                  <a href="{{ route('folders.destroy', ['folder' => $folder]) }}"
+                    onclick="event.preventDefault(); document.getElementById('delete-folder-{{ $folder->id }}').submit();">
+                    Delete
+                </a>
+                <form id="delete-folder-{{ $folder->id }}"
+                    action="{{ route('folders.destroy', ['folder' => $folder]) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
                 </div>
               </div>
             </td>

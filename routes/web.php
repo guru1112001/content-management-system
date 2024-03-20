@@ -76,3 +76,6 @@ Route::get('/subjects/{subject}', [SubjectController::class, 'showFolders'])->na
 Route::get('/folders/{folder}', [FolderController::class, 'showContents'])->name('folders.showContents');
 
 // Route::get('/folders/{folder}', [FolderController::class,'show'])->name('folders.show');
+
+
+Route::delete('/folders/{folder}', [FolderController::class,'destroy'])->name('folders.destroy');
