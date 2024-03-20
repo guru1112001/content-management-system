@@ -98,7 +98,7 @@
                       clip-rule="evenodd" />
                   </svg></button>
                 <div id="myDropdown" class="dropdown-content">
-                  <a href="#">Edit Details</a>
+                  <a href="{{ url('admin/folders/'.$folder->id.'/edit') }}">Edit Details</a>
                   <a href="#">Publish/un-Publish</a>
                   <a href="#">Free preview</a>
                   <a href="{{ route('folders.destroy', ['folder' => $folder]) }}"
