@@ -72,33 +72,41 @@
               </ul>
             </div>
           </div>
-        </nav><thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        </nav>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">Folders</th>
-            
+
           </tr>
 
 
         </thead>
         <tbody>
-            @foreach ($folders as $folder)
-               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-               <td class=" flex justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <a href="{{ route('folders.showContents', ['folder' => $folder]) }}" class="folder-link"      data-folder-id="{{ $folder->id }}">{{ $folder->name }}</a>
-                {{-- <a href="#">preview</a> --}}
-              
+          @foreach ($folders as $folder)
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td class=" flex justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <a href="{{ route('folders.showContents', ['folder' => $folder]) }}" class="folder-link"
+                data-folder-id="{{ $folder->id }}">{{ $folder->name }}</a>
+              {{-- <a href="#">preview</a> --}}
 
-                <div class="dropdown">
-                  <button onclick="toggleDropdown()" class="dropbtn">Dropdown</button>
-                  <div id="myDropdown" class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                  </div>
+
+              <div class="dropdown">
+                <button onclick="toggleDropdown()" class="dropbtn"><svg class="-mr-1 ml-2 h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg></button>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="#">Edit Details</a>
+                  <a href="#">Publish/un-Publish</a>
+                  <a href="#">Free preview</a>
+                  <a href="#">Delete</a>
                 </div>
+              </div>
             </td>
-            
-            
+
+
           </tr>
           @endforeach
         </tbody>
@@ -112,63 +120,40 @@
     @else
     <p> </p>
     @endif
- 
 
-  <script>
-    // Get references to the menu button and the dropdown menu
-var menuButton = document.getElementById('menu-button');
-var dropdownMenu = document.querySelector('.relative.inline-block.text-left .absolute');
 
-// Toggle the dropdown menu visibility when the menu button is clicked
-menuButton.addEventListener('click', function() {
-  dropdownMenu.classList.toggle('hidden');
-});
+    <script>
+      // Get references to the menu button and the dropdown menu
 
-// Close the dropdown menu when the user clicks outside of it
-document.addEventListener('click', function(event) {
-  if (!dropdownMenu.contains(event.target) && !menuButton.contains(event.target)) {
-    dropdownMenu.classList.add('hidden');
-  }
-});
 
-    Add an event listener to all dropdown buttons
-    document.querySelectorAll('[data-dropdown-toggle]').forEach(button => {
-        button.addEventListener('click', function() {
-            // Get the ID of the dropdown menu associated with this button
-            const dropdownId = button.getAttribute('data-dropdown-toggle');
-            // Toggle the visibility of the dropdown menu
-            const dropdownMenu = document.getElementById(dropdownId);
-            dropdownMenu.classList.toggle('hidden');
-        });
-    });
+            // Add event listener to folder links
+            document.addEventListener('DOMContentLoaded', function() {
+                const folderLinks = document.querySelectorAll('.folder-link');
 
-    //     // Add event listener to folder links
-    //     document.addEventListener('DOMContentLoaded', function () {
-    //         const folderLinks = document.querySelectorAll('.folder-link');
-            
-    //         folderLinks.forEach(function (link) {
-    //             link.addEventListener('click', function (event) {
-    //                 event.preventDefault();
-                    
-    //                 // Get folder id from data attribute
-    //                 const folderId = this.getAttribute('data-folder-id');
-                    
-    //                 // Fetch contents of the selected folder using AJAX
-    //                 fetchContents(folderId);
-    //             });
-    //         });
-    //     });
-        
-    //     // Function to fetch contents using AJAX
-    //     function fetchContents(folderId) {
-    //         fetch(`/folders/${folderId}`)
-    //             .then(response => response.text())
-    //             .then(data => {
-    //                 // Update contents section with fetched data
-    //                 document.getElementById('contents-section').innerHTML = data;
-                    
-    //             }) 
-    //             .catch(error => console.error('Error:', error));
-    //     }
-  </script>
-  @endsection
+                folderLinks.forEach(function(link) {
+                    link.addEventListener('click', function(event) {
+                        event.preventDefault();
+
+                        // Get folder id from data attribute
+                        const folderId = this.getAttribute('data-folder-id');
+
+                        // Fetch contents of the selected folder using AJAX
+                        fetchContents(folderId);
+                    });
+                });
+            });
+
+            // Function to fetch contents using AJAX
+            function fetchContents(folderId) {
+                fetch(`/folders/${folderId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Update contents section with fetched data
+                        document.getElementById('contents-section').innerHTML = data;
+
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+    </script>
+    @endsection
