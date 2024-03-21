@@ -69,7 +69,10 @@ Route::get('/download-content/{content}', function (Content $content) {
 
 // })->name('preview.pdf');
 
-Route::get('/preview-document/{file}', [ContentController::class,'preview'])->name('content.preview');
+// Route::get('/preview-document/{file}', [ContentController::class,'preview'])->name('content.preview');
+Route::get('preview/{id}', [ContentController::class,'preview'])->name('preview');
+
+
 
 
 Route::get('/subjects/{subject}', [SubjectController::class, 'showFolders'])->name('subjects.showFolders');

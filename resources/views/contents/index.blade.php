@@ -82,8 +82,8 @@
                     </td>
                     </td>
                     <td>
-                        <a href="{{ route('content.preview', ['file' => $content->file_path]) }}"
-                            class="text-blue-600 hover:text-blue-800">Preview</a>
+                        <a href="{{ route('preview', $content->id) }}">Preview Document</a>
+
                             <div class="dropdown">
                                 <button onclick="toggleDropdown()" class="dropbtn"><svg class="-mr-1 ml-2 h-5 w-5"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

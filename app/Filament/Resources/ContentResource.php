@@ -64,9 +64,9 @@ class ContentResource extends Resource
                 Tables\Actions\Action::make('download')
                     ->label('Download')
                     ->url(fn (Content $record): string => route('download.file', ['content' => $record->id])),
-                    Tables\Actions\Action::make('preview')
-                    ->label('Preview')
-                    ->url(fn (Content $file): string => route('content.preview', ['file' => $file->file_name]))
+                    // Tables\Actions\Action::make('preview')
+                    // ->label('Preview')
+                    // ->url(fn (Content $file): string => route('content.preview', ['file' => $file->file_name]))
 
                     // ->url(function (Content $record): string {
                     // return route('pdf.preview', ['content' => $record->id]);
