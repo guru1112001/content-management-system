@@ -20,6 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'resume',
+        'id_card', // Custom field: ID
+        'info', // Custom field: Info
+        'edu_docs', // Custom field: Edu docs
+        'photo',
         'password',
     ];
 
@@ -33,6 +38,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    
     /**
      * The attributes that should be cast.
      *
@@ -41,5 +47,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'edu_docs' => 'array',
     ];
 }
