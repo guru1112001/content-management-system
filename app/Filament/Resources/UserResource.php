@@ -34,6 +34,8 @@ class UserResource extends Resource
                 ->label('Email'),
                 TextInput::make('password')
                 ->password()
+                ->dehydrated(fn ($state) => filled($state))
+                ->required(fn (string $context): bool => $context === 'create')
                 ->revealable(),
             TextInput::make('resume')
                 ->label('Resume'),

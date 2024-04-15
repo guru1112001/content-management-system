@@ -7,6 +7,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Jeffgreco13\FilamentBreezy\Livewire\MyProfileComponent;
 
 class MyCustomComponent extends MyProfileComponent
@@ -25,6 +26,7 @@ class MyCustomComponent extends MyProfileComponent
             'resume' => auth()->user()->resume, 
             'edu_docs' => [],
             'info'=>auth()->user()->info,
+            'id_card'=>auth()->user()->id_card,
 
 
 
@@ -34,8 +36,28 @@ class MyCustomComponent extends MyProfileComponent
             //     return ['document' => $doc['document']];
             // })->toArray(),
         ];
-        foreach ($eduDocs as $doc) {
-            $this->data['edu_docs'][] = ['document' => $doc['document']];
+
+
+        // if (!empty($eduDocs)) {
+        //     foreach ($eduDocs as $uuid => $doc) {
+        //         foreach ($doc as $innerUuid => $innerDoc) {
+        //             // Extract document information from nested objects
+        //             $this->data['edu_docs'][] = [
+        //                 'uuid' => $innerUuid, // Assuming UUID is needed for reference
+        //                 'document' => $innerDoc['document'],
+        //                 'file' => null, // Initialize file to null
+        //             ];
+        //         }
+        //     }
+        // }
+        if(!empty($eduDocs)){
+
+            foreach ($eduDocs as $doc) {
+                $this->data['edu_docs'][] = [
+                    'document' => $doc['document'],
+                    // 'file' => isset($doc['file']) ? $doc['file'] : null,
+                                ];
+            }
         }
     }
     public function form(Form $form): Form
@@ -48,10 +70,11 @@ class MyCustomComponent extends MyProfileComponent
                     TextInput::make('document')
                     
                         ->required(),
-                ])
-                ->columns(2),
+                    
+                ]),
                 Textarea::make('info')
                 ->label('Info'),
+                TextInput::make('id_card')
                 
             ])
             ->statePath('data');
@@ -63,6 +86,7 @@ class MyCustomComponent extends MyProfileComponent
             'resume' => $this->data['resume'],
             'edu_docs' => $this->data['edu_docs'],
             'info' => $this->data['info'],
+            'id_card'=>$this->data['id_card']
         ]);
 
         // Redirect to the same page (refresh the Livewire component)

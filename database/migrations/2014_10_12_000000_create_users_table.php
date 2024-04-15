@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('id_card')->nullable();
             $table->text('info')->nullable();
             $table->json('edu_docs')->nullable();
+            // $table->string('document')->nullable();
             $table->string('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
