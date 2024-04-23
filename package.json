@@ -19,6 +19,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "@preline/dropdown": "^2.0.2"
+        "@preline/dropdown": "^2.0.2",
+        "pdfjs-dist": "^4.1.392"
     }
 }

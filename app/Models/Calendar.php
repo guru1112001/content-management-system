@@ -36,4 +36,9 @@ class Calendar extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class,'calendar_id');
+    }
 }

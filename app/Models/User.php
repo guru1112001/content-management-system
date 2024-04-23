@@ -58,4 +58,8 @@ class User extends Authenticatable
         'password' => 'hashed',
         'edu_docs' => 'array',
     ];
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class,'user_id');
+    }
 }
