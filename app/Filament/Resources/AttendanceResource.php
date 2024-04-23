@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\ImportAction;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Imports\AttendanceImporter;
 use Filament\Forms\Components\ToggleButtons;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\AttendanceResource\Pages;
@@ -30,8 +32,10 @@ class AttendanceResource extends Resource
         return $form
             ->schema([
                 Select::make('user_id')
+                
                 ->relationship('user','name')
                 ->hiddenon('create')
+                ->disabled()
                 ->columnSpan(2),
 
                 Select::make('calendar_id')
@@ -58,6 +62,7 @@ class AttendanceResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('user.name')
+                    // ->label('User')
                     ->searchable()
                     ->sortable(),
                 
@@ -75,6 +80,10 @@ class AttendanceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(AttendanceImporter::class)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -94,7 +103,7 @@ class AttendanceResource extends Resource
     {
         return [
             'index' => Pages\ListAttendances::route('/'),
-            // 'create' => Pages\CreateAttendance::route('/create'),
+            'create' => Pages\CreateAttendance::route('/create'),
             // 'edit' => Pages\EditAttendance::route('/{record}/edit'),
         ];
     }
