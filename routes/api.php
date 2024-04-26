@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QualificationController;
 
 /*
@@ -27,6 +28,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/cities', [CityController::class, 'index']);
     Route::get('/states', [StateController::class, 'index']);
     Route::get('/qualification', [QualificationController::class, 'index']);
+
+    
+    Route::post('password/change', [PasswordResetController::class, 'changePassword'])->middleware('auth:sanctum');
+
 });
 
 Route::put('/user', [UserController::class, 'update']);

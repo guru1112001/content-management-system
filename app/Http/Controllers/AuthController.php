@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+// use auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
@@ -78,8 +79,13 @@ class AuthController extends Controller
     }
 
 
-    public function changepassword(Request $request)
+    public function change_password(Request $request)
     {
+        $request->validate([
+            'password'=>'required,'
+        ]);
+        $loggeduser=auth()->user();
+        
         return true;
     }
 }
