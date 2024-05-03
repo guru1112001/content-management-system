@@ -3,19 +3,29 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
+use App\Models\User;
 use Filament\Tables;
+use App\Models\Batch;
+use App\Models\Branch;
 use App\Models\Calendar;
 use Filament\Forms\Form;
+use App\Models\Classroom;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Split;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\ReplicateAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\BelongsToSelect;
 use App\Filament\Resources\CalendarResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CalendarResource\RelationManagers;
+use Icetalker\FilamentTableRepeater\Forms\Components\TableRepeater;
 
 class CalendarResource extends Resource
 {
@@ -27,17 +37,42 @@ class CalendarResource extends Resource
     {
         return $form
             ->schema([
-                BelongsToSelect::make('branch_id')->relationship('branch', 'name')->label('Branch'),
+                
+                TableRepeater::make('items')
+                 
+            ->relationship()
+            ->schema([
+                Select::make('branch_id')
+                    ->relationship('branch','name'),
+                    // ->columnSpan([
+                    //     'md' => 3,
+                    // ]),
 
-                BelongsToSelect::make('batch_id')->relationship('batch', 'name')->label('Batch'),
-                
-                BelongsToSelect::make('tutor_id')->relationship('tutor', 'name')->label('Tutor'),
-                
+                Select::make('batch_id')
+                ->columnSpan([
+                    'md' => 3,
+                ])
+                    ->relationship('batch','name'),
+
+                Select::make('tutor_id')
+                    ->relationship('tutor','name'),
+
+                Select::make('classroom_id')
+                    ->relationship('classroom','name'),
+
                 TextInput::make('subject')->label('Subject'),
-            
-                BelongsToSelect::make('classroom_id')->relationship('classroom', 'name')->label('Classroom'),
+                
                 DateTimePicker::make('start_time')->label('Start Time'),
+
                 DateTimePicker::make('end_time')->label('End Time'),
+            ])
+            ->reorderable()
+            ->cloneable()
+            ->collapsible()
+            ->defaultItems(2)
+            ->columnSpan('full')
+                
+            
             ]);
     }
 
@@ -46,14 +81,14 @@ class CalendarResource extends Resource
         return $table
             // ->relationship('holidays')
             ->columns([
-                TextColumn::make('branch.name')->label('Branch'),
-                TextColumn::make('tutor.name')->label('Tutor'),
-                TextColumn::make('batch.name')->label('Batch'),
-                TextColumn::make('subject')->label('Subject'),
-                TextColumn::make('classroom.name')->label('Classroom'),
-                TextColumn::make('start_time')->label('Start Time')->sortable()->dateTime(),
-                TextColumn::make('end_time')->label('End Time')->sortable()->dateTime(),
-                TextColumn::make('end_time')->label('End Time')->sortable()->dateTime(),
+                TextColumn::make('items.branch.name')->label('branch'),
+                TextColumn::make('items.batch.name')->label('Batch'),
+                TextColumn::make('items.subject')->label('Subject'),
+                TextColumn::make('items.classroom.name')->label('Classroom'),
+                TextColumn::make('items.tutor.name')->label('Tutor'),
+                TextColumn::make('items.start_time')->label('from')->sortable(),
+                TextColumn::make('items.end_time')->label('to')->sortable(),
+                // TextColumn::make('end_time')->label('End Time')->sortable()->dateTime(),
 
             ])
             ->filters([
@@ -61,6 +96,7 @@ class CalendarResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -81,7 +117,7 @@ class CalendarResource extends Resource
         return [
             'index' => Pages\ListCalendars::route('/'),
             'create' => Pages\CreateCalendar::route('/create'),
-            'edit' => Pages\EditCalendar::route('/{record}/edit'),
+            // 'edit' => Pages\EditCalendar::route('/{record}/edit'),
         ];
     }
 }

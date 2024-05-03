@@ -13,6 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            BatchesTableSeeder::class,
+            CoursesTableSeeder::class,
+            BatchCoursesTableSeeder::class,
+            BatchusersTableSeeder::class,
+        ]);
         // \App\Models\City::create(['name' => 'City 1']);
         // \App\Models\City::create(['name' => 'City 2']);
         // \App\Models\User::factory(10)->create();

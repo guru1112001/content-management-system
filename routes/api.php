@@ -2,9 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QualificationController;
 
@@ -27,8 +31,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/cities', [CityController::class, 'index']);
     Route::get('/states', [StateController::class, 'index']);
-    Route::get('/qualification', [QualificationController::class, 'index']);
+    // Route::get('/qualification', [QualificationController::class, 'index']);
+    Route::get('/', [CalendarController::class, 'index']);
+    // Route::get('/calendars', [ApiController::class,'getData']);
+    Route::get('event', [CalendarController::class,'getEvents']);
+    
 
+
+    // routes/api.php
+
+    // Route::get('/calendar', [ApiController::class,'getCalendarData']);
+    // routes/api.php
+
+    // Route::get('/calendar/day', [ApiController::class,'getCalendarDataByDay']);
+
+    Route::get('/courses', [CourseController::class,'getCourses']);
+    Route::post('/leave/apply', [LeaveController::class, 'applyLeave']);
+    Route::get('/get/leaves',[LeaveController::class,'index']);
+    Route::get('/fetch-data', [CalendarController::class, 'fetchData']);
     
     Route::post('password/change', [PasswordResetController::class, 'changePassword'])->middleware('auth:sanctum');
 

@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('calendars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('branch_id')->constrained()->onDelete('cascade');
-            $table->foreignId('batch_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tutor_id')->constrained('users')->onDelete('cascade');
-            $table->string('subject');
-            $table->foreignId('classroom_id')->constrained()->onDelete('cascade');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->integer('branch_id');
+            $table->integer('batch_id');
+            $table->integer('tutor_id');
+            $table->integer('curriculum_id')->nullable();
+            $table->integer('teams_id');
+            $table->string('subject')->nullable();
+            $table->integer('classroom_id');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
             $table->timestamps();
         });
     }

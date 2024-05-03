@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('holidays', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('calendar_id')->constrained()->onDelete('cascade');            
+            // $table->integer('calendar_id');            
             $table->date('date');
             $table->timestamps();
         });

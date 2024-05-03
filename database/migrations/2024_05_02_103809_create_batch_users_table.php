@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batches', function (Blueprint $table) {
+        Schema::create('batch_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->integer('batch_id');
+            $table->integer('user_id');
             $table->timestamps();
-            
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batches');
+        Schema::dropIfExists('batch_users');
     }
 };

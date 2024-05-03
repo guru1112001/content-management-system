@@ -79,13 +79,13 @@ class AuthController extends Controller
     }
 
 
-    public function change_password(Request $request)
-    {
-        $request->validate([
-            'password'=>'required,'
-        ]);
-        $loggeduser=auth()->user();
+    // public function change_password(Request $request)
+    // {
+    //     $request->validate([
+    //         'password'=>'required,'
+    //     ]);
+    //     $loggeduser=auth()->user();
         
-        return true;
-    }
+    //     return true;
+    // }
 }
