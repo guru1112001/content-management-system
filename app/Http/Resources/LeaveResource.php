@@ -16,8 +16,11 @@ class LeaveResource extends JsonResource
     {
         return [
             'id'=>$this->id,
+            'name'=>$this->user->name,
+            'start_date'=>$this->start_date,
+            'end_date'=>$this->end_date,
             'status'=>$this->status,
-            'reason'=>$this->reason,
+            // 'reason'=>$this->reason,
             
         ];
     }

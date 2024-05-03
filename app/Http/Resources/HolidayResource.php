@@ -20,7 +20,7 @@ class HolidayResource extends JsonResource
             'title' => $this->name,
             'start' => $this->date,
             // 'end' => $this->date,
-            'url' => "#",
+            // 'url' => "#",
         ];
     }
 }

@@ -56,30 +56,25 @@ class CalendarController extends Controller
     {
         // Validate input parameters
         $request->validate([
-            'month' => 'required|numeric|min:1|max:12',
-            'year' => 'required|numeric|min:1970', // Assuming year should be greater than 1970
+            'start' => 'required|date_format:Y-m-d',
+            'end' => 'required|date_format:Y-m-d|after_or_equal:start',
+            
         ]);
     
-        $month = $request->input('month');
-        $year = $request->input('year');
-    
-        // Calculate start and end date based on month and year
-        $startDate = "$year-$month-01";
-        $endDate = date('Y-m-t', strtotime($startDate)); // trying to fetch the last date using the function date 
+        $startDate = $request->input('start');
+        $endDate = $request->input('end');
     
         
-        $calendar = Calendar::with('curriculum')
-            ->where('start_time', '>=', $startDate)
-            ->where('end_time', '<=', $endDate)
+        $calendar = Calendar::with('curriculum')// as  sir told retrive the data with start and end date 
+            ->whereBetween('start_time', [$startDate, $endDate])
             ->get();
     
     
         $calendar = CalendarResource::collection($calendar);
     
         
-        $holidays = Holiday::where('date', '>=', $startDate)
-            ->where('date', '<=', $endDate)
-            ->get();
+        $holidays = Holiday::whereBetween('date', [$startDate, $endDate])
+        ->get();
     
       
         $holidays = HolidayResource::collection($holidays);
@@ -87,28 +82,30 @@ class CalendarController extends Controller
     
         $mergedData = $calendar->merge($holidays);
     
-       // Paginate the merged collection
-    $perPage = $request->input('page_size', 2); // Default page size is 10
-    $page = Paginator::resolveCurrentPage() ?: 1;
-    $items = $mergedData->slice(($page - 1) * $perPage, $perPage)->values();
-    $total = $mergedData->count();
-    $start = ($page - 1) * $perPage + 1;
-    $end = min($start + $perPage - 1, $total);
-    $lastPage = ceil($total / $perPage);
+        $mergedData = $calendar->merge($holidays);
 
-    // Construct the pagination response
-    $pagination = [
-        'total' => $total,
-        'page' => $page,
-        'start' => $start,
-        'end' => $end,
-        'page_size' => $perPage,
-    ];
-
-    // Return the paginated data along with pagination information
-    return [
-        'data' => $items,
-        'pagination' => $pagination,
-    ];
+    
+        $perPage = $request->input('page_size', 3); // Default page size is 3
+        $page = Paginator::resolveCurrentPage() ?: 1;
+        $items = $mergedData->slice(($page - 1) * $perPage, $perPage)->values();
+        $total = $mergedData->count();
+        $start = ($page - 1) * $perPage + 1;
+        // $end = min($start + $perPage - 1, $total);
+        $lastPage = ceil($total / $perPage);
+    
+        // Construct the pagination response
+        $pagination = [
+            'total' => $total,
+            'page' => $page,
+            'start' => $start,
+            'end' => $lastPage,
+            'page_size' => $perPage,
+        ];
+    
+        // Return the paginated data along with pagination information
+        return [
+            'data' => $items,
+            // 'pagination' => $pagination,
+        ];
     }
 }
