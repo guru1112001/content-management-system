@@ -24,11 +24,11 @@ class CourseController extends Controller
     //                     ->where('user_id', $user->id);
     //           });
     // })->get();
-    $courses = Course::select('courses.id','courses.name', 'courses.course_type')
-    ->join('batch_courses', 'batch_courses.course_id', '=', 'courses.id')
-    ->join('batch_users', 'batch_users.batch_id', '=', 'batch_courses.batch_id')
-    ->where('batch_users.user_id', $user->id)
-    ->get();
+    $courses = Course::join('batch_courses', 'batch_courses.course_id', '=', 'courses.id')
+                ->join('batch_users', 'batch_users.batch_id', '=', 'batch_courses.batch_id')
+                ->where('batch_users.user_id', $user->id)
+                ->get();
+
     
     // $batches= Batch::select('batches.id','batches.name')
     // ->join('batch_users','batch_users.batch_id','=','batches.id')

@@ -18,6 +18,8 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'course_type' => $this->course_type,
+            'description'=>$this->short_description,
+            'image'=>$this->image,
             
         ];
     }

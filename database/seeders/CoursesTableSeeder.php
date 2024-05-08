@@ -13,7 +13,7 @@ class CoursesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Course::create(['name' => 'Course 1', 'course_type' => 'Type A']);
-    Course::create(['name' => 'Course 2', 'course_type' => 'Type B']);
+        Course::create(['name' => 'Course 1', 'course_type' => 'Type A' ,'short_description'=>'abcd']);
+    Course::create(['name' => 'Course 2', 'course_type' => 'Type B','short_description'=>'abcd']);
     }
 }
