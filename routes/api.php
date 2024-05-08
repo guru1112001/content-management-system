@@ -5,10 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\BatchController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QualificationController;
 
@@ -31,24 +33,27 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/cities', [CityController::class, 'index']);
     Route::get('/states', [StateController::class, 'index']);
-    // Route::get('/qualification', [QualificationController::class, 'index']);
-    Route::get('/', [CalendarController::class, 'index']);
-    // Route::get('/calendars', [ApiController::class,'getData']);
-    Route::get('event', [CalendarController::class,'getEvents']);
-    
+    Route::get('/qualification', [QualificationController::class, 'index']);
+   
+    // Route::get('event', [CalendarController::class,'getEvents']);
+
+    // api for listing batches
+    Route::get('/batches',[BatchController::class,'get_batches']);
 
 
-    // routes/api.php
 
-    // Route::get('/calendar', [ApiController::class,'getCalendarData']);
-    // routes/api.php
-
-    // Route::get('/calendar/day', [ApiController::class,'getCalendarDataByDay']);
-
+    //api for listing course
     Route::get('/courses', [CourseController::class,'getCourses']);
+
+    //api for applying the leave and listing
     Route::post('/leave/apply', [LeaveController::class, 'applyLeave']);
     Route::get('/get/leaves',[LeaveController::class,'index']);
-    Route::get('/fetch-data', [CalendarController::class, 'fetchData']);
+
+    //api for veiwing the calendar schedule and holidays
+    Route::post('/fetch-data', [CalendarController::class, 'fetchData']);
+
+    // api for listing attendance
+    Route::get('/attendances', [AttendanceController::class, 'index']);
     
     Route::post('password/change', [PasswordResetController::class, 'changePassword'])->middleware('auth:sanctum');
 

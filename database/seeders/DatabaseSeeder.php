@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\City;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\HolidaySeeder;
+use Database\Seeders\CalendarSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,10 @@ class DatabaseSeeder extends Seeder
             CoursesTableSeeder::class,
             BatchCoursesTableSeeder::class,
             BatchusersTableSeeder::class,
+            CalendarSeeder::class,
+            HolidaySeeder::class,
+            
+
         ]);
         // \App\Models\City::create(['name' => 'City 1']);
         // \App\Models\City::create(['name' => 'City 2']);

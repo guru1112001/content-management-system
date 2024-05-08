@@ -18,6 +18,9 @@ class CalendarResource extends JsonResource
            return [
             'id' => $this->id,
             'type'=>'schedule',
+            'tutor'=>$this->tutor->name,
+            'avatar_url'=>$this->tutor->avatar_url,
+            'location'=>$this->classroom->name,
             'title' => $this->curriculum ? $this->curriculum->name : '',
             'start' => $this->start_time->format('Y-m-d H:i:s'),
             'end' => $this->end_time->format('Y-m-d H:i:s'),
