@@ -50,7 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/get/leaves',[LeaveController::class,'index']);
 
     //api for veiwing the calendar schedule and holidays
-    Route::post('/fetch-data', [CalendarController::class, 'fetchData']);
+    Route::get('/Calanders/list', [CalendarController::class, 'fetchData']);
 
     // api for listing attendance
     Route::get('/attendances', [AttendanceController::class, 'index']);
