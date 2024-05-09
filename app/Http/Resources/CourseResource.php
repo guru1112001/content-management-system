@@ -19,7 +19,7 @@ class CourseResource extends JsonResource
             'name' => $this->name,
             'course_type' => $this->course_type,
             'description'=>$this->short_description,
-            'image'=>$this->image,
+            'image_url' => asset('storage/' . $this->image),
             
         ];
     }

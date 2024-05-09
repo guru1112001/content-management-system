@@ -30,11 +30,7 @@ class CourseController extends Controller
                 ->get();
 
     
-    // $batches= Batch::select('batches.id','batches.name')
-    // ->join('batch_users','batch_users.batch_id','=','batches.id')
-    // ->where('batch_users.user_id',$user->id)
-    // ->get();
-
+    
 
     // $batch_data=BatchResource::collection($batches);
     return CourseResource::collection($courses);
