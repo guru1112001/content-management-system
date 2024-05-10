@@ -26,14 +26,14 @@ class CalendarController extends Controller
     
         
         $calendar = Calendar::with('curriculum')// as  sir told retrive the data with start and end date 
-            ->whereBetween('start_time', [$startDate, $endDate])
+            ->whereBetween('start_time', [$startDate. ' 00:00:00', $endDate. ' 23:59:59'])
             ->get();
     
     
         $calendar = CalendarResource::collection($calendar);
-    
         
-        $holidays = Holiday::whereBetween('date', [$startDate, $endDate])
+        
+        $holidays = Holiday::wherebetween('date', [$startDate,$endDate])
         ->get();
     
       
