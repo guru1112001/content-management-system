@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Attendance extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','calendar_id','attendance_by','status','end_time'];
+    protected $fillable = ['user_id','attendance_by','date','status'];
 
     public function user()
     {
@@ -24,6 +24,8 @@ class Attendance extends Model
     }
     protected $casts = [
         'status' => AttendanceStatus::class,
+        'date'=>'datetime',
+
     ];
 }
 
