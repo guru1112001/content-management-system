@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('course_package_id')->nullable();
             $table->timestamps();
             
         });

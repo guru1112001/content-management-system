@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Batch extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name','course_package_id'];
 
     public function calendars()
     {
@@ -23,5 +23,9 @@ class Batch extends Model
     public function batch_users()
     {
         return $this->hasMany(batch_user::class);
+    }
+    public function course_package()
+    {
+        return $this->belongsTo(Course::class,'course_package_id');
     }
 }
