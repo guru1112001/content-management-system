@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('calendar_id');
             $table->string('attendance_by')->nullable();
-            $table->string('status')->default('pending');
+            $table->integer('team_id')->nullable();
+            $table->dateTime('date')->nullable();
             $table->timestamps();
         });
     }

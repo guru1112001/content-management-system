@@ -46,11 +46,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/courses', [CourseController::class,'getCourses']);
 
     //api for applying the leave and listing
-    Route::post('/leave/apply', [LeaveController::class, 'applyLeave']);
+    Route::post('/leaves/apply', [LeaveController::class, 'applyLeave']);
     Route::get('/leaves/list',[LeaveController::class,'index']);
 
     //api for veiwing the calendar schedule and holidays
-    Route::get('/Calanders/list', [CalendarController::class, 'fetchData']);
+    Route::get('/calanders/list', [CalendarController::class, 'fetchData']);
 
     // api for listing attendance
     Route::get('/attendances', [AttendanceController::class, 'index']);

@@ -19,4 +19,8 @@ class BatchCourse extends Model
     {
         return $this->belongsTo(Course::class);
     }
+    public function batchUsers()
+    {
+      return $this->hasMany(BatchUser::class);
+    }
 }

@@ -23,6 +23,11 @@ use App\Http\Controllers\FolderController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/admin/check-session', function () {
+    return response()->json([
+        'session_valid' => Auth::check(),
+    ]);
+});
 
 // Route::get('/files/download/{id}', [ContentController::class, 'download'])->name('files.download');
 

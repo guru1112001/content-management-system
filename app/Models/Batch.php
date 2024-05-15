@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\batch_user;
+use App\Models\BatchUser;
 use App\Models\Calendar;
 use App\Models\BatchCourse;
 use Illuminate\Database\Eloquent\Model;
@@ -20,9 +20,9 @@ class Batch extends Model
     {
         return $this->hasMany(BatchCourse::class);
     }
-    public function batch_users()
+    public function BatchUsers()
     {
-        return $this->hasMany(batch_user::class);
+        return $this->hasMany(BatchUser::class);
     }
     public function course_package()
     {
