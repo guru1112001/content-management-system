@@ -14,15 +14,17 @@ class CourseController extends Controller
 {
     public function getCourses(Request $request)
 {
-    $user = $request->user();
+    // $user = $request->user();
 
-    $userId = $user->id; 
+    // $userId = $user->id; 
 
-    $batchUsers = BatchUser::with('batch.course_package')->where('user_id', $userId)->get();//first fetch the batch then related to that batch fetch course_package
+    // $batchUsers = BatchUser::with('batch.course_package')->where('user_id', $userId)->get();//first fetch the batch then related to that batch fetch course_package
 
-    $courses = $batchUsers->pluck('batch.course_package'); // take the courses out  using pluck()
+    // $courses = $batchUsers->pluck('batch.course_package'); // take the courses out  using pluck()
 
-    return CourseResource::collection($courses);
+    $batches=Batch::get();
+    return CourseResource::collection($batches);
+    
 }
 }
 
