@@ -11,6 +11,7 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QualificationController;
 
@@ -24,6 +25,8 @@ use App\Http\Controllers\QualificationController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/send-notification', [NotificationController::class, 'sendNotification']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
