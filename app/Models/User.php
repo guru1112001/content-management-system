@@ -63,13 +63,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attendance::class,'user_id');
     }
-    public function enrolledBatch()
-{
-    return $this->belongsToMany(
-        Batch::class,
-        'batch_users',
-        'user_id',
-        'batch_id'
-    )->withPivot('id'); // Eager load pivot data (optional)
-}
+    public function batches()
+    {
+        return $this->belongsToMany(Batch::class, 'batch_users', 'user_id', 'batch_id');
+    }
 }

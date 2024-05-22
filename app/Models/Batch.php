@@ -30,22 +30,23 @@ class Batch extends Model
     {
         return $this->belongsTo(Course::class,'course_package_id');
     }
+
     public function students()
-{
-    return $this->belongsToMany(
-        User::class,
-        'batch_user',
-        'user_id',
-        'batch_id'
-    );
-    
-}
-protected static function booted(): void
-{
-    static::addGlobalScope('limited', function (Builder $query) {
-        if (auth()->check() && auth()->user()->is_student) {
-            $query->whereHas('students');
-        }
-    });
-}
+    {
+        return $this->belongsToMany(
+            User::class,
+            'batch_user',
+            'user_id',
+            'batch_id'
+        )
+            ->where('role_id', 6);
+    }
+    protected static function booted(): void
+    {
+        static::addGlobalScope('limited', function (Builder $query) {
+            if (auth()->check() && auth()->user()->is_student) {
+                $query->whereHas('students');
+            }
+        });
+    }
 }
