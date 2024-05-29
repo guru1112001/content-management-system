@@ -9,7 +9,9 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PasswordResetController;
@@ -38,12 +40,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/states', [StateController::class, 'index']);
     Route::get('/qualification', [QualificationController::class, 'index']);
    
-    // Route::get('event', [CalendarController::class,'getEvents']);
+   
 
     // api for listing batches
     Route::get('/batches',[BatchController::class,'get_batches']);
 
-
+    //api for listing the syllabus
+    Route::get('/Syllabus',[SyllabusController::class,'getUserSyllabus']);
 
     //api for listing course
     Route::get('/courses', [CourseController::class,'getCourses']);
@@ -57,6 +60,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // api for listing attendance
     Route::get('/attendances', [AttendanceController::class, 'index']);
+
+    //api for listing teaching material 
+    Route::get('/teachingMaterial',[SectionController::class,'GetTeachingMaterial']);
+    //api for listing for sections
+    Route::get('/sections',[SectionController::class,'getsections']);
+
+
     
     Route::post('password/change', [PasswordResetController::class, 'changePassword'])->middleware('auth:sanctum');
 

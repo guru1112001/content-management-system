@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('syllabi', function (Blueprint $table) {
             $table->id();
             $table->string('Day')->nullable();
-            $table->integer('Batch_id')->nullable();
+            $table->integer('batch_id')->nullable();
             $table->integer('Course_id')->nullable();
             $table->string('Syllabus')->nullable();
             $table->string('SSTA')->nullable();

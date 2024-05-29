@@ -20,8 +20,8 @@ class AttendanceController extends Controller
         // $merge=$attendances->merge($attendances_count);
        
         return [
-            'count'=>$attendances_count,
-            'data'=>$attendances,
+            'Attendance_count'=>$attendances_count,
+            // 'data'=>$attendances,
         ];
     }
 }

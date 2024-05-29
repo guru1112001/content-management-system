@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batch_users', function (Blueprint $table) {
+        Schema::create('teaching_materials', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('batch_id');
+            $table->string('name')->nullable();
+            $table->integer('section_id')->nullable();
+            $table->string('file')->nullable();
+            $table->boolean('published')->default(true);
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('batch_id')->references('id')->on('batches')->onDelete('cascade');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batch_users');
+        Schema::dropIfExists('teaching_materials');
     }
 };

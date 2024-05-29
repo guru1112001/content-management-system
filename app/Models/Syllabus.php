@@ -25,13 +25,13 @@ class Syllabus extends Model
     ];
     public function batch()
     {
-        return $this->belongsTo(Batch::class); // Replace 'Batch' with your actual model name
+        return $this->belongsTo(Batch::class); 
     }
 
-    // Relationship with Course model (assuming a syllabus belongs to one course)
+   
     public function course()
     {
-        return $this->belongsTo(Course::class); // Replace 'Course' with your actual model name
+        return $this->belongsTo(Course::class); 
     }
 
     public function tutor()
