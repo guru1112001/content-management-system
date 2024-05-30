@@ -16,7 +16,7 @@ class AttendanceResource extends JsonResource
     {
         return [
             'attendance_by' => $this->attendance_by,
-            'date' => $this->date->format('Y-m-d'),
+            'date' => $this->date,
         
         ];
     }

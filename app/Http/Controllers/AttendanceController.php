@@ -15,8 +15,8 @@ class AttendanceController extends Controller
 
     $attendances_count = Attendance::where('user_id', $user->id)
         ->count();
-    $attendances=Attendance::where('user_id',$user->id)->get();
-    $attendances=AttendanceResource::collection($attendances);
+    // $attendances=Attendance::where('user_id',$user->id)->get();
+    // $attendances=AttendanceResource::collection($attendances);
         // $merge=$attendances->merge($attendances_count);
        
         return [
