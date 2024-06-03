@@ -4,11 +4,12 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\QuestionBank;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Tabs;
+use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
@@ -121,6 +122,10 @@ class QuestionBankResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Action::make('viewQuestions')
+                ->label('View Questions')
+                ->url(fn ($record) => $record ? route('filament.pages.view-questions', ['questionBank' => $record->id]) : '#'),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

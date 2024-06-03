@@ -28,6 +28,9 @@ Route::get('/admin/check-session', function () {
         'session_valid' => Auth::check(),
     ]);
 });
+use App\Filament\Pages\ViewQuestions;
+
+Route::get('/view-questions/{questionBank}', ViewQuestions::class)->name('filament.pages.view-questions');
 
 // Route::get('/files/download/{id}', [ContentController::class, 'download'])->name('files.download');
 
