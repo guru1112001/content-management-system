@@ -27,6 +27,12 @@ class LeaveObserver
         ->success()
         ->sendToDatabase($leave->user);
         }
+        if ( $leave->status === LeaveStatus::Declined){
+            Notification::make()
+            ->title('Your leave has been declined')
+            ->danger()
+            ->sendToDatabase($leave->user);
+            }
     }
 
     /**
