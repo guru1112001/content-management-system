@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Section;
 use App\Models\Calendar;
 use App\Models\BatchUser;
+use App\Models\Curriculum;
 use App\Models\BatchCourse;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Batch extends Model
 {
@@ -33,20 +35,29 @@ class Batch extends Model
 
     public function students()
     {
-        return $this->belongsToMany(
-            User::class,
-            'batch_user',
-            'user_id',
-            'batch_id'
-        )
-            ->where('role_id', 6);
+    return $this->belongsToMany(
+        User::class,
+        'batch_users',
+        'batch_id',
+        'user_id'
+    );
+    
     }
-    protected static function booted(): void
+protected static function booted(): void
     {
-        static::addGlobalScope('limited', function (Builder $query) {
-            if (auth()->check() && auth()->user()->is_student) {
-                $query->whereHas('students');
-            }
-        });
+    static::addGlobalScope('limited', function (Builder $query) {
+        if (auth()->check() && auth()->user()->is_admin) {
+            $query->whereHas('students');
+        }
+    });
+    }
+    public function sections()
+    {
+        return $this->belongsToMany(Section::class, 'batch_sections', 'batch_id', 'section_id');
+    }
+
+    public function curriculums()
+    {
+        return $this->belongsToMany(Curriculum::class, 'batch_curriculum', 'batch_id', 'curriculum_id');
     }
 }

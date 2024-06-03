@@ -16,12 +16,15 @@ class SectionController extends Controller
     {
         $user=Auth::user();
 
-        $batchIds=$user->batches()->pluck('batches.id');
+       
+        $curriculumIds = \DB::table('batch_users')
+            ->join('batch_curriculum', 'batch_users.batch_id', '=', 'batch_curriculum.batch_id')
+            ->where('batch_users.user_id', $user->id)
+            ->pluck('batch_curriculum.curriculum_id');
 
-        $sections=Section::whereHas('batches',function($query) use ($batchIds)
-            {
-                $query->whereIn('batches.id',$batchIds);
-            })->get();
+        // Get sections related to those curriculums
+            $sections = Section::whereIn('curriculum_id', $curriculumIds)
+                ->get();
        
 
         if ($sections->isEmpty()) {
