@@ -38,10 +38,10 @@ class AttendanceResource extends Resource
                 ->disabled()
                 ->columnSpan(2),
 
-                Select::make('calendar_id')
-                ->relationship('calendar', 'subject')
-                // ->disabled()
-                ->columnSpan(2),
+                // Select::make('calendar_id')
+                // ->relationship('calendar', 'subject')
+                // // ->disabled()
+                // ->columnSpan(2),
                 TextInput::make('attendance_by')
                 ->required()
                 ->columnSpan(2),

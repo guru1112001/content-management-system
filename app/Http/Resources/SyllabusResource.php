@@ -17,11 +17,9 @@ class SyllabusResource extends JsonResource
     {
         return 
         [
-            'Day'=> $this->Day,
-            'Syllabus'=>$this->Syllabus,
-            'SSTA'=>$this->SSTA,
-            'course' => new CourseResource($this->name),
-
+            'Day'=> $this->day,
+            'Syllabus'=>$this->syllabus,
+            'SSTA'=>$this->subject,
         ];
     }
 }
