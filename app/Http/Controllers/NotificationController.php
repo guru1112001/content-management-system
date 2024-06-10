@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Services\FirebaseService;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\NotificationResource;
 
 class NotificationController extends Controller
 {
@@ -29,5 +32,12 @@ class NotificationController extends Controller
         $this->firebaseService->sendNotification($deviceToken, $title, $body);
 
         return response()->json(['message' => 'Notification sent successfully']);
+    }
+    public function index()
+    {
+        $user=Auth::user();
+        $notifications=Notification::where('notifiable_id',$user->id)->get();
+
+        return NotificationResource::collection($notifications);
     }
 }

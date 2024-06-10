@@ -13,10 +13,10 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\AnnouncementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +68,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/sections',[SectionController::class,'getsections']);
 
     //api for listing annoucements
-    Route::get('/annoucements',[AnnouncementController::class,'index']);
+    Route::get('/announcements',[AnnouncementController::class,'index']);
+
+    //api for notifications
+    Route::get('/notifications',[NotificationController::class,'index']);
 
     
     Route::post('password/change', [PasswordResetController::class, 'changePassword'])->middleware('auth:sanctum');
