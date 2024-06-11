@@ -73,6 +73,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //api for notifications
     Route::get('/notifications',[NotificationController::class,'index']);
 
+    Route::post('/notifications/mark-read/{id}', [NotificationController::class, 'markAsRead']);
+
+    Route::delete('/notifications/{id}', [NotificationController::class, 'delete']);
+
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+    
+    Route::get('/notifications/count', [NotificationController::class, 'count']);
     
     Route::post('password/change', [PasswordResetController::class, 'changePassword'])->middleware('auth:sanctum');
 
