@@ -81,4 +81,17 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User updated successfully', 'user' => new UserResource($user)]);
     }
+
+    public function getUsersByIds(Request $request)
+    {
+        $ids = $request->query('ids');
+        if (!$ids) {
+            return response()->json(['error' => 'No IDs provided'], 400);
+        }
+
+        $idsArray = explode(',', $ids);
+        $users = User::whereIn('id', $idsArray)->get();
+
+        return response()->json($users);
+    }
 }

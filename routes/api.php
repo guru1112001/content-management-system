@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\StateController;
@@ -13,10 +14,10 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QualificationController;
-use App\Http\Controllers\AnnouncementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/qualification', [QualificationController::class, 'index']);
    
    
-
+    Route::get('/users', [UserController::class, 'getUsersByIds']);
     // api for listing batches
     Route::get('/batches',[BatchController::class,'get_batches']);
 
