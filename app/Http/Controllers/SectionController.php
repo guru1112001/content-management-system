@@ -18,9 +18,9 @@ class SectionController extends Controller
 
        
         $curriculumIds = \DB::table('batch_users')
-            ->join('batch_curriculum', 'batch_users.batch_id', '=', 'batch_curriculum.batch_id')
+            ->join('batch_curriculums', 'batch_users.batch_id', '=', 'batch_curriculums.batch_id')
             ->where('batch_users.user_id', $user->id)
-            ->pluck('batch_curriculum.curriculum_id');
+            ->pluck('batch_curriculums.curriculum_id');
 
         // Get sections related to those curriculums
             $sections = Section::whereIn('curriculum_id', $curriculumIds)

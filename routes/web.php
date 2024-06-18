@@ -19,7 +19,3 @@ use App\Filament\Pages\ViewQuestions;
 Route::get('/view-questions/{questionBank}', ViewQuestions::class)->name('filament.pages.view-questions');
 
 
-use App\Filament\Pages\ChangePassword;
-
-Route::get('/admin/users/{user}/change-password', ChangePassword::class)
-    ->name('filament.page.change-password');

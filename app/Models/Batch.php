@@ -58,6 +58,6 @@ protected static function booted(): void
 
     public function curriculums()
     {
-        return $this->belongsToMany(Curriculum::class, 'batch_curriculum', 'batch_id', 'curriculum_id');
+        return $this->belongsToMany(Curriculum::class, 'batch_curriculums', 'batch_id', 'curriculum_id');
     }
 }

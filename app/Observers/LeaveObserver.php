@@ -4,16 +4,23 @@ namespace App\Observers;
 
 use App\Models\Leave;
 use App\Enums\LeaveStatus;
+use App\Services\FirebaseService;
 use Filament\Notifications\Notification;
 
 class LeaveObserver
 {
+    protected $firebaseService;
+
+    public function __construct(FirebaseService $firebaseService)
+    {
+        $this->firebaseService = $firebaseService;
+    }
     /**
      * Handle the Leave "created" event.
      */
     public function created(Leave $leave): void
     {
-        //
+        
     }
 
     /**
@@ -26,12 +33,30 @@ class LeaveObserver
         ->title('leave approved successfully')
         ->success()
         ->sendToDatabase($leave->user);
+        $deviceToken=$leave->user->fcm_token;
+        $body = 'You have a new notification!';
+        $title='leave approved successfully';
+        
+        
+        // $this->firebaseService->sendNotification($deviceToken, $title, $body);
+        // dd('Sending notification', ['deviceToken' => $deviceToken, 'title' => $title, 'body' => $body]);
         }
-        if ( $leave->status === LeaveStatus::Declined){
+
+
+
+        elseif ( $leave->status === LeaveStatus::Declined){
             Notification::make()
             ->title('Your leave has been declined')
             ->danger()
             ->sendToDatabase($leave->user);
+            $deviceToken=$leave->user->fcm_token;
+            $body = 'You have a new notification!';
+            $title='Your leave has been declined';
+            
+            
+            // $this->firebaseService->sendNotification($deviceToken, $title, $body);
+            // dd('Sending notification', ['deviceToken' => $deviceToken, 'title' => $title, 'body' => $body]);
+            
             }
     }
 

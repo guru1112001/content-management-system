@@ -11,7 +11,7 @@ class AnnouncementController extends Controller
     public function index()
     {
         $announcements= Announcement::where('schedule_at','<=',now())
-        ->orderBy('schedule_at', 'desc')
+        ->orderBy('schedule_at')
         ->get();
 
         return AnnouncementResource::collection($announcements);

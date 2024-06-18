@@ -13,15 +13,19 @@ class AttendanceController extends Controller
     {
         $user = $request->user();
 
-    $attendances_count = Attendance::where('user_id', $user->id)
-        ->count();
+        $attendances_count = Attendance::where('user_id', $user->id)
+            ->count();
 
-    $totalClasses = Calendar::count();
-    $attendancePercentage = round(($attendances_count / $totalClasses) * 100);
-       
+        $attendancePercentage = 0;
+
+        $totalClasses = Calendar::count();
+
+        if ($attendances_count && $totalClasses) {
+            $attendancePercentage = round(($attendances_count / $totalClasses) * 100);
+        }
         return [
-            'Attendance_count'=>$attendances_count,
-            'Attendance_percentage'=>$attendancePercentage,
+            'Attendance_count' => $attendances_count,
+            'Attendance_percentage' => $attendancePercentage,
         ];
     }
 }

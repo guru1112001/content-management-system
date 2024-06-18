@@ -20,14 +20,26 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'fcm_token' => 'string',
         ]);
 
+        $credentials = $request->only('email', 'password');
+        
+       
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('appToken')->plainTextToken;
+
+            $newDeviceToken = $request->input('fcm_token');
+            if ($user->fcm_token !== $newDeviceToken) {
+                $user->fcm_token = $newDeviceToken;
+                $user->save();
+            }
+
 
             return response()->json([
                 'message' => 'Login successful',

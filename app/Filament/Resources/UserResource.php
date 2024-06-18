@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use Illuminate\Support\Facades\Hash;
+// use Filament\Actions\Action;
+
 
 class UserResource extends Resource
 {
@@ -85,6 +88,35 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('changePassword')
+                ->label('Change Password')
+                ->modalButton('Change')
+                ->modalHeading('Change User Password')
+                ->form([
+                    TextInput::make('new_password')
+                        ->label('New Password')
+                        ->password()
+                        ->required()
+                        ->revealable()
+                        ->minLength(8),
+                    TextInput::make('confirm_password')
+                        ->label('Confirm Password')
+                        ->password()
+                        ->required()
+                        ->revealable()
+                        ->same('new_password')
+                ])
+                ->action(function (array $data, User $record): void {
+                    if ($data['new_password'] === $data['confirm_password']) {
+                        $record->password = Hash::make($data['new_password']);
+                        $record->save();
+                    } else {
+                        throw ValidationException::withMessages([
+                            'confirm_password' => 'The passwords do not match.',
+                        ]);
+                    }
+                }),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -111,6 +143,8 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
+            // 'change-password' => Pages\ChangePassword::route('/{record}/change-password'),
         ];
     }
+   
 }
