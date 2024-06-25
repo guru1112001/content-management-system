@@ -33,8 +33,13 @@ class LeaveController extends Controller
     public function index(Request $request)
     {
         $user=$request->user();
-        $leaves= Leave::where('user_id',$user->id)->get();
-        $leaves=LeaveResource::collection($leaves);
-        return $leaves;
+        $perPage = $request->input('per_page', 10);
+        $leaves= Leave::where('user_id',$user->id)->paginate($perPage);
+        // $count= Leave::where('user_id',$user->id)->count();
+        $leavesCollection=LeaveResource::collection($leaves);
+        return response()->json([
+            'data' => $leavesCollection,
+            'count' => $leaves->total(),
+        ]);
     }
 }
