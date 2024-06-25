@@ -84,14 +84,8 @@ class UserController extends Controller
 
     public function getUsersByIds(Request $request)
     {
-        $ids = $request->query('ids');
-        if (!$ids) {
-            return response()->json(['error' => 'No IDs provided'], 400);
-        }
+        $users = User::where('role_id', 7)->get();
 
-        $idsArray = explode(',', $ids);
-        $users = User::whereIn('id', $idsArray)->get();
-
-        return response()->json($users);
+        return UserResource::collection($users);
     }
 }
