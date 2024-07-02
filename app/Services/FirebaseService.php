@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+ namespace App\Services;
 
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
@@ -18,6 +18,8 @@ class FirebaseService
         $this->messaging = $firebase->createMessaging();
     }
 
+    
+    
     public function sendNotification($deviceToken, $title, $body)
     {
         $notification = Notification::create($title, $body);
@@ -27,3 +29,4 @@ class FirebaseService
         $this->messaging->send($message);
     }
 }
+
